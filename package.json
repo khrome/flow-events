@@ -1,0 +1,28 @@
+{
+    "name": "flow-events",
+    "homepage": "https://github.com/khrome/flow-events",
+    "version": "0.0.1-alpha",
+    "main": "flow.js",
+    "description": "scroll-into-view solution for overflow scrolling",
+    "keywords": [],
+    "author": "Abbey Hawk Sparrow <@khrome> (http://patternweaver.com)",
+    "contributors": [],
+    "bugs": {
+        "url": "https://github.com/khrome/flow-events/issues"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/khrome/flow-events.git"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+        "mocha": "*",
+        "chai": "*",
+        "jquery-with-dom":"*"
+    },
+    "engines": {
+        "node": "*"
+    }
+}
