@@ -18,10 +18,10 @@ describe('flow events', function(){
             $('#container').append($('<img style="width:10px;height:10px">'))
         }
         var count = 0;
-        FlowEvents.enableOn($('#container'), 'img', 'flow-in', function(){
+        FlowEvents.enableOn($('#container'), 'img', { onFlowIn : function(){
             should.exist(this);
             count++;
-        });
+        }});
         //jsdom does not update geometry, so we do it by hand:
         $('#container')[0].scrollLeft = 50;
         $('#container').trigger('scroll');

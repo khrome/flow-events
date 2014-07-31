@@ -4,9 +4,9 @@
         <script src="flow.js"></script>
         <script>
             function setup(){
-                FlowEvents.enableOn($('#container'), 'img', 'flow-in', function(e){
+                FlowEvents.enableOn($('#container'), 'img', {onFlowIn : function(e){
                     console.log('EVENT!!', e);
-                });
+                }});
             }
         </script>
         <style>

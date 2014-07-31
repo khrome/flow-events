@@ -37,7 +37,8 @@
     
     return {
         ready : $.ready,
-        enableOn : function(container, items, event, handler){
+        enableOn : function(container, items, handlers){
+            handlers = handlers || {};
             //todo: buffer and optimize to short circuit
             if(!container.previous) container.previous = {
                 inside : [],
@@ -46,7 +47,7 @@
             };
             var $container = $(container);
             $container.on('scroll', function(){
-                var $children = $(items);
+                var $children = $(items, $container);
                 var groups = {
                     inside : [],
                     outside : [],
@@ -86,27 +87,29 @@
                 });
                 var diff = {
                     inside : groups.inside.filter(function(item){ 
-                        return container.previous.inside.indexOf(item) === -1 
+                        return container.previous.inside.indexOf(item) < 0 
                     }),
                     outside : groups.outside.filter(function(item){ 
-                        return container.previous.outside.indexOf(item) === -1 
+                        return container.previous.outside.indexOf(item) < 0
                     }),
                     intersecting : groups.intersecting.filter(function(item){ 
-                        return container.previous.intersecting.indexOf(item) === -1 
+                        return container.previous.intersecting.indexOf(item) < 0 
                     })
                 };
                 diff.inside.forEach(function(el){
                     fireEvent(el, 'flow-in', {});
-                    if(event === 'flow-in' && handler) handler.apply(el, [{}]);
+                    if(handlers['onFlowOut']) handlers['onFlowOut'].apply(el, [{}]);
                 });
                 diff.outside.forEach(function(el){
                     fireEvent(el, 'flow-out', {});
-                    if(event === 'flow-out' && handler) handler.apply(el, [{}]);
+                    if(handlers['onFlowIn']) handlers['onFlowIn'].apply(el, [{}]);
                 });
                 diff.intersecting.forEach(function(el){
                     fireEvent(el, 'flowing', {});
-                    if(event === 'flowing' && handler) handler.apply(el, [{}]);
+                    if(handlers['onFlowing']) handlers['onFlowing'].apply(el, [{}]);
                 });
+                //todo: handle extents
+                //todo: handle buffer zones
                 container.previous = groups;
             });
             $container.trigger('scroll');
