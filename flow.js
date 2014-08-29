@@ -45,6 +45,8 @@
                 outside : [],
                 intersecting : []
             };
+            var beginning = false;
+            var end = false;
             var $container = $(container);
             $container.on('scroll', function(){
                 var $children = $(items, $container);
@@ -108,8 +110,35 @@
                     fireEvent(el, 'flowing', {});
                     if(handlers['onFlowing']) handlers['onFlowing'].apply(el, [{}]);
                 });
-                //todo: handle extents
+                
+                //flow-begin events
+                if((!beginning) && groups.inside.indexOf($children[0]) !== -1){
+                    fireEvent($container[0], 'flow-begin', {});
+                    if(handlers['onFlowBegin']) handlers['onFlowBegin'].apply($container[0], [{}]);
+                    beginning = true;
+                }else{
+                    if(beginning){
+                        fireEvent($container[0], 'flow-begin-away', {});
+                        if(handlers['onFlowBeginAway']) handlers['onFlowBeginAway'].apply($container[0], [{}]);
+                    }
+                    beginning = false;
+                }
+                
+                //flow-end events
+                if((!end) && groups.inside.indexOf($children[$children.length-1]) !== -1){
+                    fireEvent($container[0], 'flow-end', {});
+                    if(handlers['onFlowEnd']) handlers['onFlowEnd'].apply($container[0], [{}]);
+                    end = true;
+                }else{
+                    if(end){
+                        fireEvent($container[0], 'flow-end-away', {});
+                        if(handlers['onFlowEndAway']) handlers['onFlowEndAway'].apply($container[0], [{}]);
+                    }
+                    end = false;
+                }
                 //todo: handle buffer zones
+                //todo: short circuit chrome's stupid gesture implementation
+                // http://stackoverflow.com/questions/15829172/stop-chrome-back-forward-two-finger-swipe/17031086#17031086
                 container.previous = groups;
             });
             $container.trigger('scroll');
