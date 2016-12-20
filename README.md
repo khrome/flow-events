@@ -1,6 +1,10 @@
 flow-events.js
 ==============
 
+[![NPM version](https://img.shields.io/npm/v/flow-events.svg)]()
+[![npm](https://img.shields.io/npm/dt/flow-events.svg)]()
+[![Travis](https://img.shields.io/travis/khrome/flow-events.svg)]()
+
 If you have a container that uses overflow scrolling on a page, it's helpful to have elements generate events as they come into visibility(currently requires jQuery via UMD, but can be shimmed with any compatible lib).
 
 Usage
@@ -28,6 +32,7 @@ Then later
 Available Events
 ----------------
 There are a few events that can be generated:
+
 1. `flowing` : an unseen element scrolls partially into view
 2. `flow-in` : an unseen element scrolls fully into view
 3. `flow-out` : a visible element scrolls fully out of view
@@ -36,15 +41,21 @@ There are a few events that can be generated:
 5. `flow-end` : generated when scrolled to the right extent of the container
 4. `flow-end-away` : generated when scrolled away from the right extent of the container
 
-and a couple more planned (but unimplemented) ones
+and a couple more planned (but unimplemented) ones:
+
 1. `buffer-in` : generated when an unseen element scrolls into the buffer zone
 2. `buffer-out` : generated when an unseen element scrolls out of the buffer zone
 
-Future Features
----------------
-optional debouncing for heavy load
-buffer zones
-short circuit chrome's weird gesture/back behavior on OSX
+####Future Features
+- optional debouncing for heavy load
+- buffer zones
+- short circuit chrome's weird gesture/back behavior on OSX
+
+Testing
+-------
+for the local tests, just run
+    
+    mocha
 
 Enjoy,
 
