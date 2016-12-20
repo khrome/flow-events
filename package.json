@@ -1,7 +1,7 @@
 {
     "name": "flow-events",
     "homepage": "https://github.com/khrome/flow-events",
-    "version": "0.0.2-beta",
+    "version": "1.0.0",
     "main": "flow.js",
     "description": "scroll-into-view solution for overflow scrolling",
     "keywords": [],
